@@ -46,18 +46,22 @@ public class Manga {
     }
 
     public int getCategory_id() {
+
         return category_id;
     }
 
     public String getCategorys_name() {
+
         return categorys_name;
     }
 
     public int getAuthors_id() {
+
         return authors_id;
     }
 
     public String getAuthors_name() {
+
         return authors_name;
     }
 

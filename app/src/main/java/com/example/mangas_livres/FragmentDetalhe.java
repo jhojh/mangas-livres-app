@@ -2,62 +2,94 @@ package com.example.mangas_livres;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import retrofit2.Callback;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentDetalhe#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.Nullable;
+import com.squareup.picasso.Picasso;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.http.Path;
+
 public class FragmentDetalhe extends Fragment {
 
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_ID = "id";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private int id;
+    private View fragmentView;
     public FragmentDetalhe() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentDetalhe.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentDetalhe newInstance(String param1, String param2) {
+    public static FragmentDetalhe newInstance(int id) {
         FragmentDetalhe fragment = new FragmentDetalhe();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_ID, id);
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            id = getArguments().getInt(ARG_ID);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalhe, container, false);
+        fragmentView = inflater.inflate(R.layout.fragment_detalhe, container, false);
+
+        return fragmentView;
     }
-}
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        renderManga();
+    }
+
+    private void renderManga() {
+        Call<List<Manga>> call = RetrofitClient.getInstance().getMyApi().getMangabyId(id);
+        call.enqueue(new Callback<List<Manga>>() {
+            @Override
+            public void onResponse(Call<List<Manga>> call, Response<List<Manga>> response) {
+                List<Manga> mangas = response.body();
+                Manga mang = mangas.get(0);
+
+                TextView textName_prod = fragmentView.findViewById(R.id.textName_prod);
+                TextView textValue = fragmentView.findViewById(R.id.textValue);
+                TextView textSinopse = fragmentView.findViewById(R.id.textSinopse);
+                ImageView imgManga = fragmentView.findViewById(R.id.imgManga);
+
+                textName_prod.setText(mang.getName_prod());
+                textValue.setText("R$ " + mang.getValue());
+                textSinopse.setText(mang.getSinopse().toString());
+                String urlImage = "http://10.0.2.2/mangas-livres/"+mang.getPath();
+                Picasso.get().load(urlImage).into(imgManga);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Manga>> call, Throwable t) {
+                Log.d("TESTE", t.toString());
+            }
+        });
+
+    }
+    }
