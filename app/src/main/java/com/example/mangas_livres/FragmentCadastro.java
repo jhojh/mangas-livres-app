@@ -95,7 +95,7 @@ public class FragmentCadastro extends Fragment {
                     fragmentTransaction.replace(R.id.fragmentContainerView, fragmentLogin);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-                    Toast.makeText(requireContext(), "Suas informações foram cadastradas", Toast.LENGTH_SHORT).show();
+
                 }else{
                     Toast.makeText(requireContext(), "Erro", Toast.LENGTH_SHORT).show();
                 }
