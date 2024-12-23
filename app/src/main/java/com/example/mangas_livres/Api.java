@@ -6,6 +6,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface Api {
@@ -16,9 +17,9 @@ public interface Api {
     @GET("products/product/{id}")
     Call<List<Manga>> getMangabyId(@Path("id") int id);
 
-    @GET("users/login")
+    @POST("users/login")
     Call<User> login(@Body RequestBody requestBody);
 
-    @GET("users/")
-    Call<User> cadaster(@Body RequestBody requestBody);
+    @POST("users/")
+    Call<User>  cadastro(@Body  RequestBody requestBody);
 }

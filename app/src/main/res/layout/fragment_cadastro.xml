@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentLogin"
+    tools:context=".FragmentCadastro"
     android:background="#002244">
 
     <LinearLayout
@@ -18,16 +17,26 @@
             android:id="@+id/Titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entrar"
+            android:text="Cadastrar-se"
             android:textSize="24sp"
             android:textColor="#FFFFFF"
             android:layout_marginBottom="24dp" />
 
         <EditText
+            android:id="@+id/edName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite seu nome"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
             android:id="@+id/edEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail"
+            android:hint="Digite seu email"
             android:inputType="textEmailAddress"
             android:padding="12dp"
             android:background="@android:drawable/editbox_background_normal"
@@ -37,34 +46,34 @@
             android:id="@+id/edPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Senha"
+            android:hint="Digite sua senha"
             android:inputType="textPassword"
             android:padding="12dp"
             android:background="@android:drawable/editbox_background_normal"
             android:layout_marginBottom="24dp" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnCadastrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Entrar"
+            android:text="Cadastro"
             android:padding="12dp"
             android:backgroundTint="@color/black"
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/btnCadastro"
+            android:id="@+id/btnLogar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/white"
-            android:text="Cadastre-se"
+            android:text="Voltar para o login"
             android:textColor="#000" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="220dp"
-            android:layout_height="164dp"
+            android:layout_width="162dp"
+            android:layout_height="105dp"
             android:src="@drawable/logo" />
 
     </LinearLayout>

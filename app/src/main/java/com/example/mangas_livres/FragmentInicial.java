@@ -29,7 +29,7 @@ public class FragmentInicial extends Fragment {
     }
 
 
-    public static FragmentInicial newInstance(String param1, String param2) {
+    public static FragmentInicial newInstance() {
         FragmentInicial fragmento = new FragmentInicial();
         Bundle args = new Bundle();
         fragmento.setArguments(args);
