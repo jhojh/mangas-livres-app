@@ -66,6 +66,7 @@ public class FragmentLogin extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 login();
             }
         });
@@ -103,7 +104,7 @@ public class FragmentLogin extends Fragment {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(requireContext(), "Não permitido", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

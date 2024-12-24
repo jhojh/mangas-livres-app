@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import com.squareup.picasso.Picasso;
@@ -28,7 +30,9 @@ public class FragmentDetalhe extends Fragment {
     private static final String ARG_ID = "id";
 
     private int id;
+    Button btnDeletar;
     private View fragmentView;
+    Manga manga;
     public FragmentDetalhe() {
 
     }
@@ -54,6 +58,13 @@ public class FragmentDetalhe extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentView = inflater.inflate(R.layout.fragment_detalhe, container, false);
+        btnDeletar= fragmentView.findViewById(R.id.btnDeletar);
+        btnDeletar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delete();
+            }
+        });
 
         return fragmentView;
     }
@@ -92,4 +103,28 @@ public class FragmentDetalhe extends Fragment {
         });
 
     }
+    private void delete(){
+        Call <Manga> call = RetrofitClient.getInstance().getMyApi().delete(id);
+        call.enqueue(new Callback<Manga>() {
+            @Override
+            public void onResponse(Call<Manga> call, Response<Manga> response) {
+                if(response.isSuccessful()){
+                    FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+                    FragmentInicial fragmentInicial = FragmentInicial.newInstance();
+                    fragmentTransaction.replace(R.id.fragmentContainerView, fragmentInicial);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    Toast.makeText(requireContext(), "Deletado com sucesso", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(requireContext(), "Erro", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Manga> call, Throwable t) {
+
+            }
+        });
+    }
+
     }

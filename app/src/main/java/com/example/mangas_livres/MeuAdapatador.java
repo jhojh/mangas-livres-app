@@ -72,6 +72,7 @@ public class MeuAdapatador extends RecyclerView.Adapter<MeuAdapatador.ViewHolder
 
     @Override
     public int getItemCount() {
+
         return mangas.size();
     }
 
